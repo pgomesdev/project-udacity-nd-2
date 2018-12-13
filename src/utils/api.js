@@ -6,8 +6,6 @@ export async function getInitialData () {
     getPosts(),
   ])
 
-  console.log(response)
-
   return response
 }
 

@@ -5,18 +5,27 @@ import Post from './Post'
 
 class Posts extends Component {
   render() {
-    const { posts } = this.props;
+    const { posts } = this.props
+    const { category } = this.props.match && this.props.match.params
 
     return (
       <ul>
-        {Object.keys(posts).map(key => (
-          <li key={posts[key].id}>{JSON.stringify(posts[key])}</li>
+        {Object.keys(posts)
+          .filter(key => !category || posts[key].category === category)
+          .map(key => (
+            <li key={posts[key].id}>
+              <Post
+                title={posts[key].title}
+                author={posts[key].author}
+                timestamp={posts[key].timestamp}
+                category={posts[key].category}
+                body={posts[key].body}
+                voteScore={posts[key].voteScore}
+              />
+            </li>
         ))}
-        {/* {posts.map(post => (
-          <Post />
-        ))} */}
       </ul>
-    );
+    )
   }
 }
 

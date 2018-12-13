@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { handleInitialData } from '../actions/shared'
 import Category from './Category'
 import Posts from './Posts'
@@ -8,22 +9,23 @@ import Posts from './Posts'
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData());
+    this.props.dispatch(handleInitialData())
   }
 
   render() {
     return (
-      <div>
-        <div>
-          <h1>My Posts</h1>
-        </div>
-        <div>
-          <Category />
-        </div>
-        <div>
-          <Posts />
-        </div>
-      </div>
+      <Router>
+        <Fragment>
+          <div>
+            <h1>Readable</h1>
+          </div>
+          <div>
+            <Category />
+            <Route exact path='/' component={Posts} />
+            <Route path='/:category' component={Posts} />
+          </div>
+        </Fragment>
+      </Router>
     )
   }
 }

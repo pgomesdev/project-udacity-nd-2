@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Post extends Component {
   render() {
-    const title = 'A new hope'
-    const author = 'Pedro Gomes'
-    const timestamp = Date.now()
-    const category = 'React'
-    const body = `A hole new hope arises.
-    
-    Stay tuned for more news!!!`
-    const voteScore = 4
+    const {
+      title,
+      author,
+      timestamp,
+      category,
+      body,
+      voteScore,
+    } = this.props
 
     return (
       <div>
@@ -27,6 +28,15 @@ class Post extends Component {
       </div>
     )
   }
+}
+
+Post.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  voteScore: PropTypes.number,
 }
 
 export default Post
