@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { handleInitialData } from '../actions/shared'
 import Category from './Category'
 import Posts from './Posts'
+import AddPost from './AddPost'
 //import Post from './Post'
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <div>
             <Category />
             <Route exact path='/' component={Posts} />
+            <Route exact path='/newpost' component={AddPost} />
             <Route path='/:category' component={Posts} />
           </div>
         </Fragment>

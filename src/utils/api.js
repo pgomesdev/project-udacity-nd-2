@@ -38,3 +38,36 @@ async function getPosts () {
 
   return parsedData
 }
+
+export async function createPost(post) {
+  const {
+    id,
+    timestamp,
+    title,
+    body,
+    author,
+    category,
+  } = post;
+
+  const options = {
+    method: 'POST',
+    url: 'http://localhost:3001/posts',
+    headers: { 'Authorization': '123456' },
+    data: {
+      id,
+      timestamp,
+      title,
+      body,
+      author,
+      category,
+    }
+  }
+
+  const response = await axios(options)
+
+  return response.data
+}
+
+export async function editPost(post) {
+  
+}
