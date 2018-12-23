@@ -15,6 +15,7 @@ class Posts extends Component {
           .map(key => (
             <li key={posts[key].id}>
               <Post
+                id={posts[key].id}
                 title={posts[key].title}
                 author={posts[key].author}
                 timestamp={posts[key].timestamp}

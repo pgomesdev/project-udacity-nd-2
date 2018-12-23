@@ -18,9 +18,19 @@ async function getCategories () {
 
   const response = await axios(options)
 
-  const parsedData = response.data
+  return response.data
+}
 
-  return parsedData
+export async function getCommentsByPostId (id) {
+  const options = {
+    method: 'GET',
+    url: `http://localhost:3001/posts/${id}/comments`,
+    headers: { 'Authorization': '123456' },
+  }
+
+  const response = await axios(options)
+
+  return response.data
 }
 
 async function getPosts () {
@@ -70,4 +80,42 @@ export async function createPost(post) {
 
 export async function editPost(post) {
   
+}
+
+export async function createComment (comment) {
+  const options = {
+    method: 'POST',
+    url: 'http://localhost:3001/comments',
+    headers: { 'Authorization': '123456' },
+    data: comment
+  }
+
+  const response = await axios(options)
+
+  return response.data
+}
+
+export async function updateComment(id, comment) {
+  const options = {
+    method: 'PUT',
+    url: `http://localhost:3001/comments/${id}`,
+    headers: { 'Authorization': '123456' },
+    data: comment
+  }
+
+  const response = await axios(options)
+
+  return response.data
+}
+
+export async function deleteCommentById(id) {
+  const options = {
+    method: 'DELETE',
+    url: `http://localhost:3001/comments/${id}`,
+    headers: { 'Authorization': '123456' },
+  }
+
+  const response = await axios(options)
+
+  return response.data
 }

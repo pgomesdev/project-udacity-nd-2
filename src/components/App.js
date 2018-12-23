@@ -6,7 +6,7 @@ import { handleInitialData } from '../actions/shared'
 import Category from './Category'
 import Posts from './Posts'
 import AddPost from './AddPost'
-//import Post from './Post'
+import PostDetail from './PostDetail'
 
 class App extends Component {
   componentDidMount() {
@@ -24,7 +24,8 @@ class App extends Component {
             <Category />
             <Route exact path='/' component={Posts} />
             <Route exact path='/newpost' component={AddPost} />
-            <Route path='/:category' component={Posts} />
+            <Route exact path='/:category' component={Posts} />
+            <Route path='/:category/:post_id' component={PostDetail} />
           </div>
         </Fragment>
       </Router>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class Post extends Component {
   render() {
     const {
+      id,
       title,
       author,
       timestamp,
@@ -15,7 +17,11 @@ class Post extends Component {
     return (
       <div>
         <div>
-          <h3>{title}</h3>
+          {id 
+          ? <Link to={`/${category}/${id}`}>
+              <h3>{title}</h3>
+            </Link>
+          : <h3>{title}</h3>}
           <hr />
           <h6>Posted by: {author} at {timestamp}</h6>
           <p>{body}</p>
