@@ -1,7 +1,9 @@
 import { createPost, deletePost, updatePost, votePost } from '../utils/api'
+import { arrayToObject } from '../utils/helpers'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const MUTATE_POST = 'MUTATE_POST'
+export const ORDER_POSTS = 'ORDER_POSTS'
 export const UPVOTE = 'upVote'
 export const DOWNVOTE = 'downVote'
 
@@ -56,6 +58,25 @@ export function handleVotePost (id, vote) {
     const post = await votePost(id, vote)
 
     dispatch(mutatePost(post))
+  }
+}
+
+function orderPosts (posts) {
+  return {
+    type: ORDER_POSTS,
+    posts,
+  }
+}
+
+export function handleOrderPosts() {
+  return async (dispatch, getState) => {
+    const { posts } = getState()
+
+    const postsArray = Object.keys(posts).map(key => posts[key]).sort((a,b) => b.voteScore - a.voteScore)
+
+    const newPostState = arrayToObject(postsArray)
+
+    dispatch(orderPosts(newPostState))
   }
 }
 
