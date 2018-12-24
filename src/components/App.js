@@ -7,6 +7,7 @@ import Category from './Category'
 import Posts from './Posts'
 import AddPost from './AddPost'
 import PostDetail from './PostDetail'
+import NotFound from './NotFound'
 
 class App extends Component {
   componentDidMount() {
@@ -23,6 +24,7 @@ class App extends Component {
           <div>
             <Category />
             <Route exact path='/' component={Posts} />
+            <Route exact path='/404' component={NotFound} />
             <Route exact path='/newpost' component={AddPost} />
             <Route exact path='/:category' component={Posts} />
             <Route exact path='/:category/:post_id' component={PostDetail} />

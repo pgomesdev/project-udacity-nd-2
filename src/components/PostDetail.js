@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Post from './Post'
 import Comments from './Comments'
 import AddComment from './AddComment'
@@ -19,6 +20,10 @@ class PostDetail extends Component {
   render() {
     const postId = this.props.match.params.post_id
     const post = Object.keys(this.props.posts).map(key => this.props.posts[key]).find(post => post.id === postId)
+
+    if (!post) {
+      return <Redirect to='/404' />
+    }
     
     return (
       <Fragment>
