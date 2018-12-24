@@ -1,36 +1,51 @@
-import { createPost } from '../utils/api'
+import { createPost, deletePost, updatePost } from '../utils/api'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const ADD_POST = 'ADD_POST'
+export const MUTATE_POST = 'MUTATE_POST'
 
-function addPost (post) {
+function mutatePost (post) {
   return {
-    type: ADD_POST,
+    type: MUTATE_POST,
     post,
   }
 }
 
-export function handleAddPost(title, body, category, id = null) {
+export function handleCreatePost (title, body, category) {
   return async (dispatch) => {
-    if (!id) {
-      // CREATE POST
-      const timestamp = new Date().getTime()
-      const newPostId = timestamp.toString()
-      const author = 'Pedro';
+    const timestamp = new Date().getTime()
+    const newPostId = timestamp.toString()
+    const author = 'Pedro';
 
-      const post = await createPost({
-        timestamp,
-        title,
-        body,
-        author,
-        category,
-        id: newPostId,
-      })
+    const post = await createPost({
+      timestamp,
+      title,
+      body,
+      author,
+      category,
+      id: newPostId,
+    })
 
-      dispatch(addPost(post))
-    } else {
-      // EDIT POST
-    }
+    dispatch(mutatePost(post))
+  }
+}
+
+export function handleEditPost (id, title, body) {
+  return async (dispatch) => {
+    const post = await updatePost({
+      id,
+      title,
+      body,
+    })
+
+    dispatch(mutatePost(post))
+  }
+}
+
+export function handleDeletePost (id) {
+  return async (dispatch) => {
+    const post = await deletePost(id)
+
+    dispatch(mutatePost(post))
   }
 }
 

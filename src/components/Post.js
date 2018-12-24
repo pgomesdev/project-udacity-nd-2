@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { handleDeletePost } from '../actions/posts'
 
 class Post extends Component {
+  state = {
+    toHome: false,
+  }
+
+  handleDelete = async (id) => {
+    const { dispatch } = this.props
+    await dispatch(handleDeletePost(id))
+
+    this.setState(() => ({
+      toHome: true,
+    }))
+  }
+
   render() {
     const {
       id,
@@ -12,12 +27,18 @@ class Post extends Component {
       category,
       body,
       voteScore,
+      isList,
     } = this.props
+    const { toHome } = this.state
+
+    if (toHome) {
+      return <Redirect to='/' />
+    }
 
     return (
       <div>
         <div>
-          {id 
+          {isList 
           ? <Link to={`/${category}/${id}`}>
               <h3>{title}</h3>
             </Link>
@@ -30,6 +51,14 @@ class Post extends Component {
             <span> Stars</span>
             <span> {voteScore ? voteScore : ''}</span>
           </div>
+          {!isList
+            && <div>
+              <Link to={`/post/${id}/edit`}>
+                Edit
+              </Link>
+              <button onClick={() => this.handleDelete(id)}>Delete</button>
+            </div>
+          }
         </div>
       </div>
     )
@@ -45,4 +74,4 @@ Post.propTypes = {
   voteScore: PropTypes.number,
 }
 
-export default Post
+export default connect()(Post)

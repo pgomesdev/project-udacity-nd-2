@@ -24,6 +24,7 @@ class PostDetail extends Component {
       <Fragment>
         {post &&
           <Post
+            id={post.id}
             title={post.title}
             author={post.author}
             timestamp={post.timestamp}

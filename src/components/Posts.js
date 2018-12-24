@@ -12,6 +12,7 @@ class Posts extends Component {
       <ul>
         {Object.keys(posts)
           .filter(key => !category || posts[key].category === category)
+          .filter(key => !posts[key].deleted)
           .map(key => (
             <li key={posts[key].id}>
               <Post
@@ -22,6 +23,7 @@ class Posts extends Component {
                 category={posts[key].category}
                 body={posts[key].body}
                 voteScore={posts[key].voteScore}
+                isList={true}
               />
             </li>
         ))}
