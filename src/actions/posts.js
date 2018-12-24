@@ -1,7 +1,9 @@
-import { createPost, deletePost, updatePost } from '../utils/api'
+import { createPost, deletePost, updatePost, votePost } from '../utils/api'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const MUTATE_POST = 'MUTATE_POST'
+export const UPVOTE = 'upVote'
+export const DOWNVOTE = 'downVote'
 
 function mutatePost (post) {
   return {
@@ -44,6 +46,14 @@ export function handleEditPost (id, title, body) {
 export function handleDeletePost (id) {
   return async (dispatch) => {
     const post = await deletePost(id)
+
+    dispatch(mutatePost(post))
+  }
+}
+
+export function handleVotePost (id, vote) {
+  return async (dispatch) => {
+    const post = await votePost(id, vote)
 
     dispatch(mutatePost(post))
   }

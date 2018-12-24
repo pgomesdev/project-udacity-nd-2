@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { edit } from '../actions/edit'
-import { handleDeleteComment } from '../actions/comments'
+import { handleDeleteComment, handleVoteComment, UPVOTE, DOWNVOTE } from '../actions/comments'
 
 class Comment extends Component {
   handleEdit = (comment) => {
@@ -14,6 +14,12 @@ class Comment extends Component {
     const { dispatch } = this.props
 
     dispatch(handleDeleteComment(id))
+  }
+
+  handleVote = (id, vote) => {
+    const { dispatch } = this.props
+
+    dispatch(handleVoteComment(id, vote))
   }
 
   render() {
@@ -34,6 +40,10 @@ class Comment extends Component {
               <p>Score: {voteScore}</p>
               {author === 'Pedro' && <button onClick={() => this.handleEdit(this.props.comment)}>Edit</button>}
               {author === 'Pedro' && <button onClick={() => this.handleDelete(id)}>Delete</button>}
+              <div>
+                <button onClick={() => this.handleVote(id, UPVOTE)}>thumbs up</button>
+                <button onClick={() => this.handleVote(id, DOWNVOTE)}>thumbs down</button>
+              </div>
             </div>
           : <p>Be the first to comment in this post!</p>
         }

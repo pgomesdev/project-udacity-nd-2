@@ -117,7 +117,45 @@ export async function updatePost(post) {
 
   const response = await axios(options)
 
-  console.log('response', response, 'options', options)
+  return response.data
+}
+
+/**
+ * Vote a post
+ * @param {String} id 
+ * @param {String} option 
+ */
+export async function votePost (id, option) {
+  const options = {
+    method: 'POST',
+    url: `http://localhost:3001/posts/${id}`,
+    headers: { 'Authorization': '123456' },
+    data: {
+      option,
+    }
+  }
+
+  const response = await axios(options)
+
+  return response.data
+}
+
+/**
+ * Vote a comment
+ * @param {String} id 
+ * @param {String} option 
+ */
+export async function voteComment (id, option) {
+  const options = {
+    method: 'POST',
+    url: `http://localhost:3001/comments/${id}`,
+    headers: { 'Authorization': '123456' },
+    data: {
+      option,
+    }
+  }
+
+  const response = await axios(options)
 
   return response.data
 }

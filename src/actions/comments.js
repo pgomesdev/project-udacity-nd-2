@@ -1,7 +1,9 @@
-import { createComment, deleteCommentById, updateComment } from '../utils/api'
+import { createComment, deleteCommentById, updateComment, voteComment } from '../utils/api'
 
 export const MUTATE_COMMENT = 'MUTATE_COMMENT'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
+export const UPVOTE = 'upVote'
+export const DOWNVOTE = 'downVote'
 
 function mutateComment (comment) {
   return {
@@ -47,6 +49,14 @@ export function handleEditComment (id, content) {
 export function handleDeleteComment (id) {
   return async (dispatch) => {
     const comment = await deleteCommentById(id)
+
+    dispatch(mutateComment(comment))
+  }
+}
+
+export function handleVoteComment (id, vote) {
+  return async (dispatch) => {
+    const comment = await voteComment(id, vote)
 
     dispatch(mutateComment(comment))
   }

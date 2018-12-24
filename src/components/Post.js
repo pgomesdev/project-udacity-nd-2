@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { handleDeletePost } from '../actions/posts'
+import { handleDeletePost, handleVotePost, UPVOTE, DOWNVOTE } from '../actions/posts'
 
 class Post extends Component {
   state = {
@@ -16,6 +16,12 @@ class Post extends Component {
     this.setState(() => ({
       toHome: true,
     }))
+  }
+
+  handleVote = (id, vote) => {
+    const { dispatch } = this.props
+
+    dispatch(handleVotePost(id, vote))
   }
 
   render() {
@@ -50,6 +56,10 @@ class Post extends Component {
             <span>Category: {category}</span>
             <span> Stars</span>
             <span> {voteScore ? voteScore : ''}</span>
+          </div>
+          <div>
+            <button onClick={() => this.handleVote(id, UPVOTE)}>thumbs up</button>
+            <button onClick={() => this.handleVote(id, DOWNVOTE)}>thumbs down</button>
           </div>
           {!isList
             && <div>
