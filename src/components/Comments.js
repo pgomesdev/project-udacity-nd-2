@@ -6,15 +6,14 @@ class Comments extends Component {
   render() {
     const { comments } = this.props
     return (
-      <div>
+      <div className='col-md-12'>
         {Object.keys(comments)
           .filter(key => !comments[key].deleted)
           .map(key => (
-            <li key={key}>
-              <Comment
-                comment={comments[key]}
-              />
-            </li>
+            <Comment
+              key={key}
+              comment={comments[key]}
+            />
           )
         )}
       </div>

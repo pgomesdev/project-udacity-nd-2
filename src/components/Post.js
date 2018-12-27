@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleDeletePost, handleVotePost, UPVOTE, DOWNVOTE } from '../actions/posts'
+import { formatDate } from '../utils/helpers'
 
 class Post extends Component {
   state = {
@@ -42,33 +43,45 @@ class Post extends Component {
     }
 
     return (
-      <div>
-        <div>
+      <div className='card' style={{ marginBottom: '25px' }}>
+        <div className='card-body'>
           {isList 
           ? <Link to={`/${category}/${id}`}>
-              <h3>{title}</h3>
+              <h5 className='card-title'>{title}</h5>
             </Link>
-          : <h3>{title}</h3>}
+          : <h5 className='card-title'>{title}</h5>}
           <hr />
-          <h6>Posted by: {author} at {timestamp}</h6>
+          <small>Posted by: {author} at {formatDate(timestamp)}</small>
           <p>{body}</p>
           <div>
-            <span>Category: {category}</span>
-            <span> Stars</span>
+            <span>Category: {category} </span>
+          </div>
+          <div>
+            <i className="fas fa-star"></i>
             <span> {voteScore ? voteScore : ''}</span>
           </div>
           <div>
-            <button onClick={() => this.handleVote(id, UPVOTE)}>thumbs up</button>
-            <button onClick={() => this.handleVote(id, DOWNVOTE)}>thumbs down</button>
+            <button
+              className='btn btn-outline-success'
+              onClick={() => this.handleVote(id, UPVOTE)}
+              >
+              <i className='fas fa-thumbs-up'></i>
+            </button>
+            <button
+              className='btn btn-outline-danger'
+              onClick={() => this.handleVote(id, DOWNVOTE)}
+              >
+              <i className='fas fa-thumbs-down'></i>
+            </button>
+            {!isList && author === 'Pedro'
+              && <Fragment>
+                  <Link className='btn btn-outline-info float-right' to={`/post/${id}/edit`}>
+                    Edit
+                  </Link>
+                  <button className='btn btn-outline-danger float-right' onClick={() => this.handleDelete(id)}>Delete</button>
+                </Fragment>
+            }
           </div>
-          {!isList
-            && <div>
-              <Link to={`/post/${id}/edit`}>
-                Edit
-              </Link>
-              <button onClick={() => this.handleDelete(id)}>Delete</button>
-            </div>
-          }
         </div>
       </div>
     )

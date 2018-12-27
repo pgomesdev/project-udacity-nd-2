@@ -97,38 +97,43 @@ class AddPost extends Component {
     }
 
     return (
-      <div>
-        <h3>{postId ? 'Edit Post' : 'New Post'}</h3>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Title: </label>
+      <div className='card'>
+        <div className='card-body'>
+          <h3 className='card-title'>{postId ? 'Edit Post' : 'New Post'}</h3>
+          <form onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <label>Title: </label>
+              <input
+                className='form-control'
+                type='text'
+                onChange={this.handleTitleChange} 
+                value={this.state.title}
+              />
+            </div>
+            <div className='form-group'>
+              <label>Content: </label>
+              <textarea
+                className='form-control'
+                onChange={this.handleContentChange}
+                value={this.state.content}
+              ></textarea>
+            </div>
+            <div className='form-group'>
+              <label>Category: </label>
+              <select className='form-control' value={this.state.category} onChange={this.handleCategoryChange}>
+                <option key={'null'} value=''></option>
+                {Object.keys(categories).map((key) => (
+                  <option key={key} value={categories[key].name}>{categories[key].name}</option>
+                ))}
+              </select>
+            </div>
             <input
-              type='text'
-              onChange={this.handleTitleChange} 
-              value={this.state.title}
+              className='btn btn-dark'
+              type='submit'
+              value='Save Post'
             />
-          </div>
-          <div>
-            <label>Content: </label>
-            <textarea
-              onChange={this.handleContentChange}
-              value={this.state.content}
-            ></textarea>
-          </div>
-          <div>
-            <label>Category: </label>
-            <select value={this.state.category} onChange={this.handleCategoryChange}>
-              <option key={'null'} value=''></option>
-              {Object.keys(categories).map((key) => (
-                <option key={key} value={categories[key].name}>{categories[key].name}</option>
-              ))}
-            </select>
-          </div>
-          <input
-            type='submit'
-            value='Save Post'
-          />
-        </form>
+          </form>
+        </div>
       </div>
     )
   }

@@ -48,21 +48,21 @@ class AddComment extends Component {
 
   render() {
     return(
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>Content: </label>
-            <textarea
-              onChange={this.handleContentChange}
-              value={this.state.content}
-            ></textarea>
-          </div>
-          <input
-            type='submit'
-            value='Save Comment'
-          />
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <div className='form-group'>
+          <label>Content: </label>
+          <textarea
+            className='form-control'
+            onChange={this.handleContentChange}
+            value={this.state.content}
+          ></textarea>
+        </div>
+        <input
+          className='btn btn-dark'
+          type='submit'
+          value='Save Comment'
+        />
+      </form>
     )
   }
 }

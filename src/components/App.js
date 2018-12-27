@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
@@ -17,9 +17,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Fragment>
-          <div>
-            <h1>Readable</h1>
+        <div className='container-fluid'>
+          <div className='jumbotron jumbotron-fluid'>
+            <div className='text-center'>
+              <h1 className='display-4'>Readable</h1>
+            </div>
           </div>
           <div>
             <Category />
@@ -30,7 +32,7 @@ class App extends Component {
             <Route exact path='/:category/:post_id' component={PostDetail} />
             <Route path='/post/:post_id/edit' component={AddPost} />
           </div>
-        </Fragment>
+        </div>
       </Router>
     )
   }
