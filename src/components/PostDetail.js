@@ -22,7 +22,7 @@ class PostDetail extends Component {
     const post = Object.keys(this.props.posts).map(key => this.props.posts[key]).find(post => post.id === postId)
 
     if (!post) {
-      return <Redirect to='/404' />
+      return <Redirect to='/notfound' />
     }
     
     return (

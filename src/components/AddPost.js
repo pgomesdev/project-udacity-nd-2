@@ -8,7 +8,8 @@ class AddPost extends Component {
     title: '',
     content: '',
     category: '',
-    toHome: false
+    toHome: false,
+    toPost: false,
   }
 
   handleTitleChange = (e) => {
@@ -59,6 +60,10 @@ class AddPost extends Component {
         title,
         content,
       ))
+
+      this.setState(() => ({
+        toPost: true
+      }))
     }
   }
 
@@ -77,11 +82,15 @@ class AddPost extends Component {
 
   render() {
     const postId = this.props.match.params.post_id
-    const { toHome } = this.state
+    const { toHome, toPost, category } = this.state
     const { categories } = this.props
 
     if (toHome) {
       return <Redirect to='/' />
+    }
+
+    if (toPost) {
+      return <Redirect to={`/${category}/${postId}`} />
     }
 
     return (
@@ -108,7 +117,12 @@ class AddPost extends Component {
             </div>
             <div className='form-group'>
               <label>Category: </label>
-              <select className='form-control' value={this.state.category} onChange={this.handleCategoryChange}>
+              <select
+                className='form-control'
+                value={this.state.category}
+                onChange={this.handleCategoryChange}
+                disabled={!!postId}
+              >
                 <option key={'null'} value=''></option>
                 {Object.keys(categories).map((key) => (
                   <option key={key} value={categories[key].name}>{categories[key].name}</option>

@@ -33,10 +33,10 @@ class AddComment extends Component {
         edit.id,
         content,
       ))
+
+      dispatch(clearEdit())
     }
-
-    dispatch(clearEdit())
-
+    
     this.setState(() => ({
       content: '',
     }))

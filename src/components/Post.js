@@ -34,6 +34,7 @@ class Post extends Component {
       category,
       body,
       voteScore,
+      commentCount,
       isList,
       authedUser,
     } = this.props
@@ -58,8 +59,10 @@ class Post extends Component {
             <span>Category: {category} </span>
           </div>
           <div>
-            <i className="fas fa-star"></i>
-            <span> {voteScore ? voteScore : ''}</span>
+            <i className="fas fa-star"> </i>
+            <span> {voteScore} </span>
+            <i className="fas fa-comment"> </i>
+            <span> {commentCount}</span>
           </div>
           <div>
             <button

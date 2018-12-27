@@ -18,10 +18,13 @@ class Posts extends Component {
 
     return (
       <div className='row'>
-        <div className='col-md-12' style={{ 'margin': '25px 0' }}>
-          <button className='btn btn-outline-dark btn-sm' onClick={this.handleOrder}>Order Posts by Score</button>
-          <Link className='btn btn-outline-dark btn-sm float-right' to='/newpost'>New Post</Link>
-        </div>
+        {
+          ['new', 'notfound'].indexOf(category) === -1 &&
+          <div className='col-md-12' style={{ 'margin': '25px 0' }}>
+            <button className='btn btn-outline-dark btn-sm' onClick={this.handleOrder}>Order Posts by Score</button>
+            <Link className='btn btn-outline-dark btn-sm float-right' to='/new'>New Post</Link>
+          </div>
+        }
         <div className='col-md-12'>
           {Object.keys(posts)
             .filter(key => !category || posts[key].category === category)
@@ -35,6 +38,7 @@ class Posts extends Component {
                 category={posts[key].category}
                 body={posts[key].body}
                 voteScore={posts[key].voteScore}
+                commentCount={posts[key].commentCount}
                 isList={true}
                 key={posts[key].id}
               />

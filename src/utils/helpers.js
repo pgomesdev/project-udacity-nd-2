@@ -14,7 +14,7 @@ export function arrayToObject (array) {
 export function formatDate (timestamp) {
   const date = new Date(timestamp)
 
-  const stringDate = `${date.getDay() < 10 ? '0' + date.getDay() : date.getDay()}-${date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getFullYear()}`
+  const stringDate = `${date.getDay() < 10 ? '0' + date.getDay() : date.getDay()}/${date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}/${date.getFullYear()}`
 
   return stringDate
 }
