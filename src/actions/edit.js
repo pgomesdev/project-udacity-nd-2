@@ -6,3 +6,10 @@ export function edit (edit) {
     edit,
   }
 }
+
+export function clearEdit () {
+  return {
+    type: EDIT_COMMENT,
+    edit: {},
+  }
+}

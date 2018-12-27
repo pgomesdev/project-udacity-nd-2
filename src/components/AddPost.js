@@ -38,39 +38,27 @@ class AddPost extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { dispatch } = this.props
-    const { title, content, category, toHome } = this.state
+    const { dispatch, authedUser } = this.props
+    const { title, content, category } = this.state
     const postId = this.props.match.params.post_id
 
     if (!postId) {
-      await dispatch(handleCreatePost(
+      dispatch(handleCreatePost(
         title,
         content,
         category,
+        authedUser,
       ))
 
       this.setState(() => ({
-        toHome: !toHome
+        toHome: true
       }))
     } else {
-      await dispatch(handleEditPost(
+      dispatch(handleEditPost(
         postId,
         title,
         content,
       ))
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    const postId = this.props.match.params.post_id
-    const { posts } = props
-
-    if (postId) {
-      this.setState(() => ({
-        title: posts[postId] && posts[postId].title,
-        content: posts[postId] && posts[postId].body,
-        category: posts[postId] && posts[postId].category,
-      }))
     }
   }
 
@@ -139,10 +127,11 @@ class AddPost extends Component {
   }
 }
 
-const mapStateToProps = ({ categories, posts }) => {
+const mapStateToProps = ({ categories, posts, authedUser }) => {
   return {
     categories,
     posts,
+    authedUser,
   }
 }
 

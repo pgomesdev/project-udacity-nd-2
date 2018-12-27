@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleCreateComment, handleEditComment } from '../actions/comments'
+import { clearEdit } from '../actions/edit'
 
 class AddComment extends Component {
   state = {
@@ -11,39 +12,48 @@ class AddComment extends Component {
     const content = e.target.value
 
     this.setState(() => ({
-      content
+      content,
     }))
   }
 
   handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { dispatch, postId, edit } = this.props
+    const { dispatch, postId, edit, authedUser } = this.props
     const { content } = this.state
 
     if (!edit.id) {
-      await dispatch(handleCreateComment(
+      dispatch(handleCreateComment(
         postId,
         content,
+        authedUser,
       ))
     } else {
-      await dispatch(handleEditComment(
+      dispatch(handleEditComment(
         edit.id,
         content,
       ))
     }
+
+    dispatch(clearEdit())
 
     this.setState(() => ({
       content: '',
     }))
   }
 
-  componentWillReceiveProps(props) {
-    const { edit } = props
+  componentWillReceiveProps(nextProps) {
+    const { edit } = nextProps
 
     this.setState(() => ({
-      content: edit ? edit.body : ''
+      content: edit.body || ''
     }))
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props
+
+    dispatch(clearEdit())
   }
 
   render() {
@@ -67,9 +77,10 @@ class AddComment extends Component {
   }
 }
 
-const mapStateToProps = ({ edit }) => {
+const mapStateToProps = ({ edit, authedUser }) => {
   return {
     edit,
+    authedUser,
   }
 }
 

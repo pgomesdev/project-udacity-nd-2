@@ -12,12 +12,11 @@ function mutateComment (comment) {
   }
 }
 
-export function handleCreateComment (postId, content) {
+export function handleCreateComment (postId, content, author) {
   return async (dispatch) => {
     const timestamp = new Date().getTime()
     const id = timestamp.toString()
     const body = content
-    const author = 'Pedro'
     const parentId = postId
 
     const comment = await createComment({

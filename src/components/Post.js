@@ -35,6 +35,7 @@ class Post extends Component {
       body,
       voteScore,
       isList,
+      authedUser,
     } = this.props
     const { toHome } = this.state
 
@@ -73,7 +74,7 @@ class Post extends Component {
               >
               <i className='fas fa-thumbs-down'></i>
             </button>
-            {!isList && author === 'Pedro'
+            {!isList && author === authedUser
               && <Fragment>
                   <Link className='btn btn-outline-info float-right' to={`/post/${id}/edit`}>
                     Edit
@@ -97,4 +98,10 @@ Post.propTypes = {
   voteScore: PropTypes.number,
 }
 
-export default connect()(Post)
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    authedUser,
+  }
+}
+
+export default connect(mapStateToProps)(Post)

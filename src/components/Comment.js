@@ -29,6 +29,7 @@ class Comment extends Component {
       body,
       voteScore,
     } = this.props.comment
+    const { authedUser } = this.props
 
     return (
       <div className='card' style={{ marginBottom: '25px' }}>
@@ -40,12 +41,12 @@ class Comment extends Component {
               <p>
                 <i className="fas fa-star"></i> {voteScore}
               </p>
-              {author === 'Pedro'
+              {author === authedUser
                 && <button
                     className='btn btn-outline-info float-right'
                     onClick={() => this.handleEdit(this.props.comment)}
                     >Edit</button>}
-              {author === 'Pedro'
+              {author === authedUser
                 && <button
                     className='btn btn-outline-danger float-right'
                     onClick={() => this.handleDelete(id)}
@@ -68,4 +69,10 @@ class Comment extends Component {
   }
 }
 
-export default connect()(Comment)
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    authedUser,
+  }
+}
+
+export default connect(mapStateToProps)(Comment)

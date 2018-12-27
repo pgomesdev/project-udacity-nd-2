@@ -14,11 +14,10 @@ function mutatePost (post) {
   }
 }
 
-export function handleCreatePost (title, body, category) {
+export function handleCreatePost (title, body, category, author) {
   return async (dispatch) => {
     const timestamp = new Date().getTime()
     const newPostId = timestamp.toString()
-    const author = 'Pedro';
 
     const post = await createPost({
       timestamp,
