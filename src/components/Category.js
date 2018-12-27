@@ -30,6 +30,7 @@ const mapStateToProps = ({ categories }) => {
 
 Category.propTypes = {
   categories: PropTypes.object.isRequired,
+  dispatch: PropTypes.func,
 }
 
 export default connect(mapStateToProps)(Category)

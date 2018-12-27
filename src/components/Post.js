@@ -98,7 +98,11 @@ Post.propTypes = {
   timestamp: PropTypes.number.isRequired,
   category: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
+  authedUser: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   voteScore: PropTypes.number,
+  commentCount: PropTypes.number,
 }
 
 const mapStateToProps = ({ authedUser }) => {

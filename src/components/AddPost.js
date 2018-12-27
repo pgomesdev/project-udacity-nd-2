@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { handleCreatePost, handleEditPost } from '../actions/posts'
 
 class AddPost extends Component {
@@ -139,6 +140,16 @@ class AddPost extends Component {
       </div>
     )
   }
+}
+
+AddPost.propTypes = {
+  authedUser: PropTypes.string.isRequired,
+  categories: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  posts: PropTypes.object.isRequired,
+  history: PropTypes.object,
+  location: PropTypes.object,
+  match: PropTypes.object,
 }
 
 const mapStateToProps = ({ categories, posts, authedUser }) => {

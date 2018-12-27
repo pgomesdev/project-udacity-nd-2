@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { handleCreateComment, handleEditComment } from '../actions/comments'
 import { clearEdit } from '../actions/edit'
 
@@ -77,10 +78,18 @@ class AddComment extends Component {
   }
 }
 
-const mapStateToProps = ({ edit, authedUser }) => {
+AddComment.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  edit: PropTypes.object.isRequired,
+  authedUser: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = ({ edit, authedUser }, { postId }) => {
   return {
     edit,
     authedUser,
+    postId,
   }
 }
 

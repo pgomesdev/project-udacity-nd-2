@@ -58,6 +58,10 @@ const mapStateToProps = ({ posts }) => {
 
 Posts.propTypes = {
   posts: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  history: PropTypes.object,
+  location: PropTypes.object,
 }
 
 export default connect(mapStateToProps)(Posts)

@@ -48,6 +48,7 @@ class App extends Component {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 }
 
 const mapStateToProps = ({ authedUser }) => {

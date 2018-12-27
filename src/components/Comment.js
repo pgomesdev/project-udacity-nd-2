@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { edit } from '../actions/edit'
 import { handleDeleteComment, handleVoteComment, UPVOTE, DOWNVOTE } from '../actions/comments'
 
@@ -69,9 +70,16 @@ class Comment extends Component {
   }
 }
 
-const mapStateToProps = ({ authedUser }) => {
+Comment.propTypes = {
+  authedUser: PropTypes.string.isRequired,
+  comment: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = ({ authedUser }, { comment }) => {
   return {
     authedUser,
+    comment,
   }
 }
 
