@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { handleCreateComment, handleEditComment } from '../actions/comments'
@@ -58,8 +58,11 @@ class AddComment extends Component {
   }
 
   render() {
+    const { edit } = this.props
     return(
-      <form onSubmit={this.handleSubmit}>
+      <Fragment>
+        <h5>{edit.id ? 'Edit Comment' : 'New Comment'}</h5>
+        <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label>Content: </label>
           <textarea
@@ -74,6 +77,7 @@ class AddComment extends Component {
           value='Save Comment'
         />
       </form>
+      </Fragment>
     )
   }
 }

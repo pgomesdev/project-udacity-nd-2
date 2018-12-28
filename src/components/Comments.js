@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Comment from './Comment'
 
-const Comments = ({ comments }) => (
+const Comments = ({ comments, scroll }) => (
   <div className='col-md-12'>
     {Object.keys(comments)
       .filter(key => !comments[key].deleted)
       .map(key => (
         <Comment
+          scroll={scroll}
           key={key}
           comment={comments[key]}
         />

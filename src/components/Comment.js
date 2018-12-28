@@ -6,15 +6,17 @@ import { handleDeleteComment, handleVoteComment, UPVOTE, DOWNVOTE } from '../act
 
 class Comment extends Component {
   handleEdit = (comment) => {
-    const { dispatch } = this.props
+    const { dispatch, scroll } = this.props
 
     dispatch(edit(comment))
+
+    scroll()
   }
 
-  handleDelete = (id) => {
+  handleDelete = (id, postId) => {
     const { dispatch } = this.props
 
-    dispatch(handleDeleteComment(id))
+    dispatch(handleDeleteComment(id, postId))
   }
 
   handleVote = (id, vote) => {
@@ -29,6 +31,7 @@ class Comment extends Component {
       author,
       body,
       voteScore,
+      parentId,
     } = this.props.comment
     const { authedUser } = this.props
 
@@ -50,7 +53,7 @@ class Comment extends Component {
               {author === authedUser
                 && <button
                     className='btn btn-outline-danger float-right'
-                    onClick={() => this.handleDelete(id)}
+                    onClick={() => this.handleDelete(id, parentId)}
                     >Delete</button>}
               <div>
                 <button

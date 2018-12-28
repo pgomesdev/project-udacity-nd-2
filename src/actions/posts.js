@@ -7,7 +7,7 @@ export const ORDER_POSTS = 'ORDER_POSTS'
 export const UPVOTE = 'upVote'
 export const DOWNVOTE = 'downVote'
 
-function mutatePost (post) {
+export function mutatePost (post) {
   return {
     type: MUTATE_POST,
     post,

@@ -9,6 +9,10 @@ import { receiveComments } from '../actions/comments'
 import { getCommentsByPostId } from '../utils/api'
 
 class PostDetail extends Component {
+  scrollToBottom = () => {
+    this.bottom.scrollIntoView({ behavior: 'smooth' })
+  }
+
   async componentDidMount() {
     const postId = this.props.match.params.post_id
     const { dispatch } = this.props
@@ -41,11 +45,11 @@ class PostDetail extends Component {
           />
         }
         <h4>Comments</h4>
-        <Comments />
-        <h5>New Comment</h5>
+        <Comments scroll={this.scrollToBottom} />
         <AddComment
           postId={postId}
         />
+        <div ref={(el) => {this.bottom = el}}></div>
       </Fragment>
     )
   }

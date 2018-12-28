@@ -1,4 +1,5 @@
 import { createComment, deleteCommentById, updateComment, voteComment } from '../utils/api'
+import { mutatePost } from './posts'
 
 export const MUTATE_COMMENT = 'MUTATE_COMMENT'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
@@ -13,11 +14,13 @@ function mutateComment (comment) {
 }
 
 export function handleCreateComment (postId, content, author) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const timestamp = new Date().getTime()
     const id = timestamp.toString()
     const body = content
     const parentId = postId
+    const { posts } = getState()
+    const post = posts[postId]
 
     const comment = await createComment({
       id,
@@ -26,8 +29,11 @@ export function handleCreateComment (postId, content, author) {
       author,
       parentId
     })
+    
+    post.commentCount++
 
     dispatch(mutateComment(comment))
+    dispatch(mutatePost(post))
   }
 }
 
@@ -45,11 +51,17 @@ export function handleEditComment (id, content) {
   }
 }
 
-export function handleDeleteComment (id) {
-  return async (dispatch) => {
+export function handleDeleteComment (id, postId) {
+  return async (dispatch, getState) => {
     const comment = await deleteCommentById(id)
+    const { posts } = getState()
+    const post = posts[postId]
 
     dispatch(mutateComment(comment))
+
+    post.commentCount--
+
+    dispatch(mutatePost(post))
   }
 }
 
