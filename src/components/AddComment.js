@@ -23,6 +23,12 @@ class AddComment extends Component {
     const { dispatch, postId, edit, authedUser } = this.props
     const { content } = this.state
 
+    if (!content) {
+      alert('The content must de filled')
+
+      return
+    }
+
     if (!edit.id) {
       dispatch(handleCreateComment(
         postId,

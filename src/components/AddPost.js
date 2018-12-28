@@ -44,6 +44,12 @@ class AddPost extends Component {
     const { title, content, category } = this.state
     const postId = this.props.match.params.post_id
 
+    if (!title || !content || !category) {
+      alert('Title, content and category must be filled')
+
+      return
+    }
+
     if (!postId) {
       dispatch(handleCreatePost(
         title,
